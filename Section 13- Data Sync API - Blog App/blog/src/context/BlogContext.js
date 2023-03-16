@@ -33,8 +33,9 @@ const getBlogPosts = (dispatch) => {
 };
 
 const addBlogPost = (dispatch) => {
-  return (title, content, callback) => {
-    dispatch({ type: "add_blogpost", payload: { title, content } });
+  return async (title, content, callback) => {
+    // dispatch({ type: "add_blogpost", payload: { title, content } });
+    await jsonServer.post("/blogposts", { title, content });
     if (callback) {
       callback();
     }
@@ -59,6 +60,6 @@ const editBlogPost = (dispatch) => {
 
 export const { Context, Provider } = createDataContext(
   blogReducer,
-  { addBlogPost, deleteBlogPost, editBlogPost, get_blogposts },
+  { addBlogPost, deleteBlogPost, editBlogPost, getBlogPosts },
   []
 );
